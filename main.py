@@ -400,12 +400,24 @@ class cfApiMethods(object):
 import datetime
 import os  # to access "variables" stored in the pipedream context
 
-# use "api.cryptofacilities.com" if your IP is whitelisted (Settings -> API Keys -> IP Whitelist)
+# standard settings
+# you could use "api.cryptofacilities.com" if your IP is whitelisted (Settings -> API Keys -> IP Whitelist)
 #apiPath = "https://www.cryptofacilities.com"
 apiPath = "https://futures.kraken.com"
 timeout = 20
 checkCertificate = True  # when using the test environment, this must be set to "False"
 useNonce = False  # nonce is optional
+
+# check whether all keys are present
+required_env = [
+    "SOURCE_KRAKEN_FUTURES_KEY",
+    "SOURCE_KRAKEN_FUTURES_SECRET",
+    "YOUR_KRAKEN_FUTURES_KEY",
+    "YOUR_KRAKEN_FUTURES_SECRET",
+]
+missing = [k for k in required_env if k not in os.environ]
+if missing:
+    raise RuntimeError(f"Missing required environment variables: {', '.join(missing)}")
 
 # removed "cfApi." before these methods:
 cfPublic = cfApiMethods(apiPath, timeout=timeout, checkCertificate=checkCertificate)
