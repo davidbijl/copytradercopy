@@ -410,10 +410,10 @@ useNonce = False  # nonce is optional
 
 # check whether all keys are present
 required_env = [
-    "SOURCE_KRAKEN_FUTURES_KEY",
-    "SOURCE_KRAKEN_FUTURES_SECRET",
-    "YOUR_KRAKEN_FUTURES_KEY",
-    "YOUR_KRAKEN_FUTURES_SECRET",
+    "KRAKEN_SOURCE_KEY",
+    "KRAKEN_SOURCE_SECRET",
+    "KRAKEN_YOUR_KEY",
+    "KRAKEN_YOUR_SECRET",
 ]
 missing = [k for k in required_env if k not in os.environ]
 if missing:
@@ -421,8 +421,8 @@ if missing:
 
 # removed "cfApi." before these methods:
 cfPublic = cfApiMethods(apiPath, timeout=timeout, checkCertificate=checkCertificate)
-cfSource = cfApiMethods(apiPath, timeout=timeout, apiPublicKey=os.environ["SOURCE_KRAKEN_FUTURES_KEY"], apiPrivateKey=os.environ["SOURCE_KRAKEN_FUTURES_SECRET"], checkCertificate=checkCertificate, useNonce=useNonce)
-cfYour = cfApiMethods(apiPath, timeout=timeout, apiPublicKey=os.environ["YOUR_KRAKEN_FUTURES_KEY"], apiPrivateKey=os.environ["YOUR_KRAKEN_FUTURES_SECRET"], checkCertificate=checkCertificate, useNonce=useNonce)
+cfSource = cfApiMethods(apiPath, timeout=timeout, apiPublicKey=os.environ["KRAKEN_SOURCE_KEY"], apiPrivateKey=os.environ["KRAKEN_SOURCE_SECRET"], checkCertificate=checkCertificate, useNonce=useNonce)
+cfYour = cfApiMethods(apiPath, timeout=timeout, apiPublicKey=os.environ["KRAKEN_YOUR_KEY"], apiPrivateKey=os.environ["KRAKEN_YOUR_SECRET"], checkCertificate=checkCertificate, useNonce=useNonce)
 
 # get general info about assets
 instruments = json.loads(cfPublic.get_instruments())['instruments']
