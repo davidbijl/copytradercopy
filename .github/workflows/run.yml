@@ -1,0 +1,46 @@
+name: Run script
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    # Every 5 minutes (edit as needed). Minimum supported is every 5 minutes.
+    - cron: "*/5 * * * *"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: run-script
+  cancel-in-progress: true
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+        
+      - name: Run main script
+        env:
+          # Users set these in: Settings -> Secrets and variables -> Actions
+          SOURCE_KRAKEN_FUTURES_KEY: ${{ secrets.SOURCE_KRAKEN_FUTURES_KEY }}
+          SOURCE_KRAKEN_FUTURES_SECRET: ${{ secrets.SOURCE_KRAKEN_FUTURES_SECRET }}
+      
+          YOUR_KRAKEN_FUTURES_KEY: ${{ secrets.YOUR_KRAKEN_FUTURES_KEY }}
+          YOUR_KRAKEN_FUTURES_SECRET: ${{ secrets.YOUR_KRAKEN_FUTURES_SECRET }}
+        run: |
+          python main.py
+          
