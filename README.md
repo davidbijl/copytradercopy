@@ -17,7 +17,7 @@ Python copy-trading script to copy Futures positions between Kraken acounts.
 Add these in: Settings > Secrets and variables > Actions > New repository secret
 
 ## Scheduling
-- Default: every 5 minutes
+- Default: every 10 minutes
 - Change in `.github/workflows/run.yml`
 
 ## Enable Actions
