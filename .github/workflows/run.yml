@@ -4,7 +4,7 @@ on:
   workflow_dispatch: {}
   schedule:
     # Every 10 minutes (edit as needed). Minimum supported is every 5 minutes.
-    - cron: "*/10 * * * *"
+    - cron: "8-59/10 * * * *"
 
 permissions:
   contents: read
